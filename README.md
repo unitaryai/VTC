@@ -111,12 +111,10 @@ We show that our method is robust to different combinations of modalities, both 
 |--------------------------|------------------|-------------------|------------------|-------------------|--------------------------|
 | CLIP                 | img+title            | 11.1                                                  | 26.0                                                  | 11.1          | 25.3           |
 | img+title            | img+title            | 15.5                                                  | 34.9                                                  | 14.4          | 33.4           |
-<br>
 | img+title+cmts       | img+title            | 15.5                                                  | 34.5                                                  | 14.4          | 33.3           |
 | img+title+cmts       | img+title+cmts       | 18.0                                                  | 43.2                                                  | 18.7          | 43.9           |
 | img+title+cmts     | img+title            | 14.9                                                  | 34.2                                                  | 14.2          | 32.9           |
 |img+title+cmts     | img+title+cmts       | 28.2                                                  | 51.2                                            | 25.1          | 49.9           |
-<br>
 | img+title+cmts+audio | img+title            | 15.4                                                  | 34.0                                                  | 14.3          | 32.9           |
 | img+title+cmts+audio | img+title+audio      | 15.8                                                  | 36.9                                                  | 12.2          | 30.4           |
 | img+title+cmts+audio | img+title+cmts+audio | 19.6                                                  | 45.6                                                  | 20.6          | 47.2           |

@@ -1,0 +1,69 @@
+{
+    "name": "pretrained_clip_comments_attention_5_audio_clips_with_comms",
+    "n_gpu": 1,
+    "batch_size": 50,
+    "num_workers": 30,
+    "arch": {
+        "type": "PretrainedCLIP_finaltf",
+        "args": {
+            "model_type":"ViT-B/32",
+            "branch_to_adapt": "text",
+            "branch_to_adapt_val": "text",
+            "n_layers": 2,
+            "n_heads": 8,
+            "init_from_avg": true,
+            "random_comment_masking": false,
+            "random_skip_adapter": true,
+            "init_audio_model": true,
+            "audio_model_ckpt": "",
+            "clip_audio_ckpt": ""
+
+        }
+    },
+    "dataset": {
+        "type": "ImTextDataset",
+        "args": {
+            "root": "",
+            "csv_file": "",
+            "add_comments": "always",
+            "comment_sampling": "random",
+            "num_comms": 5,
+            "use_augmentation": false,
+            "cached_audio_features": "",
+            "audio_with_comms": true
+        }
+    },
+    "optimizer": {
+        "type": "Adam",
+        "args": {
+            "lr": 0.000001,
+            "weight_decay": 0,
+            "amsgrad": true
+        }
+    },
+    "loss": "clip_loss",
+    "loss_args": {},
+    "metrics": [{
+        "type": "RecallAtK",
+        "args": {
+            "name_a": "visual",
+            "name_b": "titles",
+            "k_vals": [1, 10]},
+        },],
+    "lr_scheduler": {
+        "type": "StepLR",
+        "args": {
+            "step_size": 10,
+            "gamma": 0.1
+        }
+    },
+    "trainer": {
+        "epochs": 10,
+        "save_dir": "saved/",
+        "save_period": 1,
+        "verbosity": 2,
+        "monitor": "max val_titles_from_visual-recall_at_10",
+        "early_stop": 10,
+        "tensorboard": true
+    }
+}

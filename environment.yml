@@ -1,0 +1,31 @@
+name: vtc_code
+channels:
+  - defaults
+  - pytorch
+  - conda-forge
+dependencies:
+  - python==3.8
+  - pytorch::pytorch==1.7.1
+  - cudatoolkit=11.0
+  - conda-forge::av
+  - conda-forge::ffmpeg<4.3
+  - pytorch::faiss-gpu
+  - ipython
+  - pip
+  - pandas
+  - spacy
+  - nltk
+  - scikit-image
+  - anaconda::nb_conda_kernels
+  - pytest
+  - pip:
+    - einops
+    - tensorboardx
+    - transformers>=4.2.2
+    - sentence-transformers
+    - sentencepiece
+    - pyjson5
+    - 'git+https://github.com/openai/CLIP.git'
+    - zsvision
+    # Compile torchvision from source to use ffmpeg
+    - 'git+https://github.com/jamt9000/vision.git@v0.8.2_fixver'

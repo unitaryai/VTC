@@ -1,0 +1,60 @@
+{
+    "name": "eccv_pretrained_clip_timesformer_attention_comments",
+    "n_gpu": 1,
+    "batch_size": 50,
+    "num_workers": 40,
+    "arch": {
+        "type": "PretrainedCLIP_TimeSformer_finaltf",
+        "args": {
+            "model_type":"ViT-B/32",
+            "branch_to_adapt": "text",
+            "branch_to_adapt_val": "text",
+            "init_from_avg": true
+        }
+    },
+    "dataset": {
+        "type": "VideoDatasetSegments",
+        "args": {
+            "csv_file": "",
+            "root": "",
+            "add_comments": "always",
+            "comment_sampling": "random",
+            "num_comms": 5
+        }
+    },
+    "time_lr": 0.00001,
+    "adapter_lr": 0.0001,
+    "optimizer": {
+        "type": "Adam",
+        "args": {
+            "lr": 0.0000011,
+            "weight_decay": 0,
+            "amsgrad": true
+        }
+    },
+    "loss": "clip_loss",
+    "loss_args": {},
+    "metrics": [{
+        "type": "RecallAtK",
+        "args": {
+            "name_a": "visual",
+            "name_b": "titles",
+            "k_vals": [1, 10]},
+        },],
+    "lr_scheduler": {
+        "type": "StepLR",
+        "args": {
+            "step_size": 20,
+            "gamma": 0.1
+        }
+    },
+    "trainer": {
+        "epochs": 10,
+        "save_dir": "saved/",
+        "save_period": 1,
+        "verbosity": 2,
+        "monitor": "max val_titles_from_visual-recall_at_10",
+        "early_stop": 10,
+        "tensorboard": true
+    }
+}

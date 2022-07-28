@@ -19,6 +19,7 @@ dependencies:
   - anaconda::nb_conda_kernels
   - pytest
   - pip:
+    - pre-commit
     - einops
     - tensorboardx
     - transformers>=4.2.2

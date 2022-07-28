@@ -7,13 +7,14 @@ sys.path.append(".")
 import json
 import logging
 
-import dataset_loaders.dataset_loaders as module_data
-import model.model as module_arch
 import numpy as np
 import torch
-from model.metric import RecallAtK
 from torch.utils.data import DataLoader
 from tqdm import tqdm
+
+import dataset_loaders.dataset_loaders as module_data
+import model.model as module_arch
+from model.metric import RecallAtK
 from utils.parse_config import ConfigParser
 
 logging.getLogger().setLevel(logging.INFO)
@@ -64,7 +65,7 @@ def main(
 
     if branch_to_adapt is None:
         if add_comments != "always":
-            exp_combo = f"title_only"
+            exp_combo = "title_only"
         else:
             exp_combo = f"{comment_fusion}_{num_comms}_comms"
     else:

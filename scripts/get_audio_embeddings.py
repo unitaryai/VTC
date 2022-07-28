@@ -1,14 +1,11 @@
 import os
-import pickle
 import sys
 import time
 from pathlib import Path
 
-import clip
 import numpy as np
 import pandas as pd
 import torch
-from PIL import Image
 from torch.utils.data import DataLoader
 from torch.utils.data.dataset import Dataset
 from tqdm import tqdm
@@ -17,9 +14,7 @@ sys.path.insert(0, str(Path(os.path.realpath(__file__)).parents[1]) + "/")
 
 import av
 from GDT.datasets.audio_utils import load_audio
-from GDT.datasets.decoder import get_start_end_idx
 from GDT.model import AudioBaseNetwork, Identity
-from model.model import MLP
 
 _filedir = os.path.dirname(os.path.realpath(__file__))
 _base = os.path.realpath(os.path.join(_filedir, ".."))
@@ -64,7 +59,7 @@ class DS(Dataset):
         video = self.filenames[index]
         try:
             container = av.open(video)
-        except:
+        except Exception:
             try:
                 container = av.open(video, metadata_errors="ignore")
             except Exception as e:
@@ -79,8 +74,7 @@ class DS(Dataset):
                 container.streams.video[0].thread_type = "AUTO"
                 fps = float(container.streams.video[0].average_rate)
                 frames_length = container.streams.video[0].frames
-                duration = container.streams.video[0].duration
-            except:
+            except Exception:
                 if len(container.streams.audio) > 0:
                     container.streams.audio[0].thread_type = "AUTO"
                     if container.streams.audio[0].average_rate is not None:
@@ -88,7 +82,6 @@ class DS(Dataset):
                     else:
                         fps = 30
                     frames_length = container.streams.audio[0].frames
-                    duration = container.streams.audio[0].duration
                 else:
                     print(f"No container.streams.audio for {video}")
                     audio_present = False

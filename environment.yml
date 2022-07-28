@@ -19,6 +19,7 @@ dependencies:
   - anaconda::nb_conda_kernels
   - pytest
   - pip:
+    - pytest
     - pre-commit
     - einops
     - tensorboardx

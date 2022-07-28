@@ -4,7 +4,6 @@ import json
 import os
 from fractions import Fraction
 
-import av
 import clip
 import numpy as np
 import pandas as pd
@@ -24,6 +23,19 @@ from dataset_loaders.video_retrieval_videodatasets import (
     VideoDatasetMSVD,
     _tokenize_max_len,
 )
+
+__all__ = [
+    "FeaturesDataset",
+    "ImTextDataset",
+    "VideoDatasetFirst1800",
+    "VideoDatasetFirst32",
+    "VideoDatasetK700Comments",
+    "VideoDatasetLivebot",
+    "VideoDatasetMSRVTT",
+    "VideoDatasetMSVD",
+    "VideoDatasetReddit",
+    "VideoDatasetSegments",
+]
 
 CLIP_TRANSFORM = transforms.Compose(
     [
@@ -280,7 +292,6 @@ class VisionTitleCommentDatasetBase(Dataset):
         print(len(self.ids), "reddit videos")
 
     def _load_kinetics(self, df):
-        exclude_kw = set(["video", "gopro", "webcam"])
         nk = 0
         for ki in range(len(df)):
             row = df.iloc[ki]
@@ -299,7 +310,6 @@ class VisionTitleCommentDatasetBase(Dataset):
                 self.ids.append(-1)
                 self.titles.append(row.title_en)
                 self.video_lengths.append(row.video_length)
-                kw = [] if pd.isna(row.keywords) else json.loads(row.keywords)
                 comms = [] if pd.isna(row.comments) else json.loads(row.comments)
 
                 if not pd.isna(row.description_en):
@@ -315,7 +325,6 @@ class VisionTitleCommentDatasetBase(Dataset):
         assert nk > 400000
 
     def _load_howto100m(self, df):
-        exclude_kw = set(["video", "gopro", "webcam"])
         nk = 0
         for ki in range(len(df)):
             row = df.iloc[ki]
@@ -326,7 +335,6 @@ class VisionTitleCommentDatasetBase(Dataset):
                 self.ids.append(-1)
                 self.titles.append(row.title)
                 self.video_lengths.append(row.video_length)
-                kw = [] if pd.isna(row.keywords) else json.loads(row.keywords)
 
                 comms = [] if pd.isna(row.comments) else json.loads(row.comments)
 
@@ -1143,7 +1151,7 @@ class VideoDatasetLivebot(VideoDatasetSegments):
                 video_path, read_audio_stream=False
             )
         except Exception as e:
-            print("failed video: ", video_path)
+            print("failed video: ", video_path, e)
             vid = None
         if len(vid) == 0:
             vid = None

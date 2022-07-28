@@ -4,16 +4,18 @@ import sys
 
 sys.path.append(".")
 
+from typing import Optional
+
 import clip
-import dataset_loaders.dataset_loaders as module_data
-import model.model as module_arch
-from model.metric import RecallAtK
+import numpy as np
 import pandas as pd
 import torch
 from torch.utils.data import DataLoader
 from tqdm import tqdm
-import numpy as np
-from typing import Optional
+
+import dataset_loaders.dataset_loaders as module_data
+import model.model as module_arch
+from model.metric import RecallAtK
 
 logging.getLogger().setLevel("INFO")
 

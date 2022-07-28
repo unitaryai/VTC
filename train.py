@@ -1,8 +1,9 @@
 import argparse
 import collections
-import torch
 import os
 import random
+
+import torch
 
 # Limit the number of threads used in CPU ops
 # (mainly for tensor ops in data loaders which already have multiproc
@@ -16,16 +17,17 @@ import torch.multiprocessing
 
 torch.multiprocessing.set_sharing_strategy("file_system")
 
-from torch.utils.data import DataLoader
 import numpy as np
+import wandb
+from torch.utils.data import DataLoader
+
 import dataset_loaders.dataset_loaders as module_data
 import model.loss as module_loss
 import model.metric as module_metric
 import model.model as module_arch
-from utils.parse_config import ConfigParser
 from trainer import Trainer
 from utils import prepare_device
-import wandb
+from utils.parse_config import ConfigParser
 
 
 def main(config: ConfigParser):

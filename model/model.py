@@ -5,10 +5,22 @@ import clip
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from einops.layers.torch import Rearrange, Reduce
+from einops.layers.torch import Reduce
 from torch.nn.init import constant_
 
 from .timesformer_clip_alt import make_timesformer_clip_vit_alt
+
+__all__ = [
+    "CLIP",
+    "MLP",
+    "JointEmbedding",
+    "PretrainedCLIP",
+    "PretrainedCLIP_finaltf",
+    "PretrainedCLIP_TimeSformer",
+    "PretrainedCLIP_TimeSformer_finaltf",
+    "PretrainedCLIPBase",
+    "R2Plus1D_34_IG65M_32frames",
+]
 
 
 def normalize(x):
@@ -21,7 +33,7 @@ def normalize_eps(x, eps=1e-9):
 
 def squash(s):
     s = s + 1e-9
-    mag_sq = torch.sum(s ** 2, dim=-1, keepdim=True)
+    mag_sq = torch.sum(s**2, dim=-1, keepdim=True)
     mag = torch.sqrt(mag_sq)
     s = (mag_sq / (1.0 + mag_sq)) * (s / mag)
     return s
@@ -397,7 +409,7 @@ class PretrainedCLIP_finaltf(PretrainedCLIPBase):
         if self.init_audio_model:
             try:
                 from GDT.model import AudioBaseNetwork, Identity
-            except Exception as e:
+            except Exception:
                 raise ValueError(
                     "for audio experiments, GDT repository needs to be cloned from https://github.com/facebookresearch/GDT."
                 )

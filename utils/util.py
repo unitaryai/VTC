@@ -3,7 +3,6 @@ from collections import OrderedDict
 from itertools import repeat
 from pathlib import Path
 
-import pandas as pd
 import pyjson5
 import torch
 

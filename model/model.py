@@ -5,7 +5,7 @@ import clip
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from einops.layers.torch import Rearrange, Reduce
+from einops.layers.torch import Reduce
 from torch.nn.init import constant_
 
 from .timesformer_clip_alt import make_timesformer_clip_vit_alt
@@ -397,7 +397,7 @@ class PretrainedCLIP_finaltf(PretrainedCLIPBase):
         if self.init_audio_model:
             try:
                 from GDT.model import AudioBaseNetwork, Identity
-            except Exception as e:
+            except Exception:
                 raise ValueError(
                     "for audio experiments, GDT repository needs to be cloned from https://github.com/facebookresearch/GDT."
                 )

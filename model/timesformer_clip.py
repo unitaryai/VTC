@@ -16,7 +16,7 @@ https://github.com/m-bain/video-transformers/blob/main/video-transformers/timesf
 
 Further hacking to adapt to CLIP's VisualTransformer by James Thewlis
 
-CLIP from https://github.com/openai/CLIP 
+CLIP from https://github.com/openai/CLIP
 Learning Transferable Visual Models From Natural Language Supervision https://arxiv.org/abs/2103.00020
 """
 
@@ -468,9 +468,7 @@ def make_timesformer_clip_vit(nframes):
 
 
 if __name__ == "__main__":
-    import matplotlib
     import pylab
-    from PIL import Image
 
     nframes = 2
     timesfm = make_timesformer_clip_vit(nframes)
@@ -481,6 +479,7 @@ if __name__ == "__main__":
     torch.manual_seed(123)
 
     image = torch.randn(2, 1, 3, 224, 224)
+    # from PIL import Image
     # image = preprocess(Image.open("CLIP.png")).unsqueeze(0).unsqueeze(0)
 
     # Repeat an image from nframes

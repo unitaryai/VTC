@@ -65,7 +65,7 @@ def main(
 
     if branch_to_adapt is None:
         if add_comments != "always":
-            exp_combo = f"title_only"
+            exp_combo = "title_only"
         else:
             exp_combo = f"{comment_fusion}_{num_comms}_comms"
     else:

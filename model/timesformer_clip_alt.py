@@ -4,7 +4,7 @@ TimeSformer in PyTorch, with CLIP ViT initialisation
 This version more closely follows the official TimeSformer
 https://github.com/facebookresearch/TimeSformer/blob/main/lib/models/vit.py
 
-CLIP from https://github.com/openai/CLIP 
+CLIP from https://github.com/openai/CLIP
 Learning Transferable Visual Models From Natural Language Supervision https://arxiv.org/abs/2103.00020
 """
 
@@ -12,9 +12,9 @@ from collections import OrderedDict
 
 import clip
 import torch
-from einops import rearrange, repeat
+from einops import rearrange
 from torch import einsum, nn
-from torch.nn.init import constant_, trunc_normal_, xavier_uniform_
+from torch.nn.init import constant_, trunc_normal_
 
 
 class LayerNorm(nn.LayerNorm):
@@ -137,7 +137,7 @@ class ResidualAttentionBlock(nn.Module):
 
         # print('tfm x ', x.min(), x.max())
 
-        ## Temporal
+        # Temporal
         xt = x[:, 1:, :]
         xt = rearrange(xt, "b (h w t) m -> (b h w) t m", b=B, h=gridH, w=gridW, t=F)
         res_temporal = self.timeattn(self.ln_time(xt))
@@ -147,7 +147,7 @@ class ResidualAttentionBlock(nn.Module):
         res_temporal = self.temporal_fc(res_temporal)
         xt = x[:, 1:, :] + res_temporal
 
-        ## Spatial
+        # Spatial
         init_cls_token = x[:, 0, :].unsqueeze(1)
         cls_token = init_cls_token.repeat(1, F, 1)
         cls_token = rearrange(cls_token, "b t m -> (b t) m", b=B, t=F).unsqueeze(1)
@@ -157,10 +157,10 @@ class ResidualAttentionBlock(nn.Module):
         res_spatial = self.attention(self.ln_1(xs))
         # print('tfm att', res_spatial.min(), res_spatial.max())
 
-        ### Taking care of CLS token
+        # Taking care of CLS token
         cls_token = res_spatial[:, 0, :]
         cls_token = rearrange(cls_token, "(b t) m -> b t m", b=B, t=F)
-        cls_token = torch.mean(cls_token, 1, True)  ## averaging for every frame
+        cls_token = torch.mean(cls_token, 1, True)  # averaging for every frame
         res_spatial = res_spatial[:, 1:, :]
         res_spatial = rearrange(
             res_spatial, "(b t) (h w) m -> b (h w t) m", b=B, h=gridH, w=gridW, t=F
@@ -168,7 +168,7 @@ class ResidualAttentionBlock(nn.Module):
         res = res_spatial
         x = xt
 
-        ## Mlp
+        # Mlp
         x = torch.cat((init_cls_token, x), 1) + torch.cat((cls_token, res), 1)
         x = x + self.mlp(self.ln_2(x))
         return x
@@ -260,12 +260,11 @@ class VisualTransformer(nn.Module):
 
         cls_token = self.class_embedding[None, None, :].to(x.dtype)
         cls_tokens = cls_token.expand(x.size(0), -1, -1)
-        x_ = x
         x = torch.cat((cls_tokens, x), dim=1)
 
         x = x + self.positional_embedding[None, :, :].to(x.dtype)
 
-        ## Time Embeddings
+        # Time Embeddings
         cls_tokens = x[:B, 0, :].unsqueeze(1)
         x = x[:, 1:]
         x = rearrange(x, "(b t) n m -> (b n) t m", b=B, t=F)
@@ -331,9 +330,7 @@ def make_timesformer_clip_vit_alt(nframes, model="ViT-B/32"):
 
 
 if __name__ == "__main__":
-    import matplotlib
     import pylab
-    from PIL import Image
 
     nframes = 8
     timesfm = make_timesformer_clip_vit_alt(nframes)
@@ -344,6 +341,7 @@ if __name__ == "__main__":
     torch.manual_seed(123)
 
     image = torch.randn(2, 1, 3, 224, 224)
+    # from PIL import Image
     # image = preprocess(Image.open("CLIP.png")).unsqueeze(0).unsqueeze(0)
 
     # Repeat an image from nframes

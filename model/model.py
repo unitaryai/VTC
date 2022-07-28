@@ -21,7 +21,7 @@ def normalize_eps(x, eps=1e-9):
 
 def squash(s):
     s = s + 1e-9
-    mag_sq = torch.sum(s ** 2, dim=-1, keepdim=True)
+    mag_sq = torch.sum(s**2, dim=-1, keepdim=True)
     mag = torch.sqrt(mag_sq)
     s = (mag_sq / (1.0 + mag_sq)) * (s / mag)
     return s

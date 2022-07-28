@@ -9,7 +9,7 @@ import torch
 
 
 def is_image_like_batch(obj):
-    """ Return True if it seems to be a batch of RGB images """
+    """Return True if it seems to be a batch of RGB images"""
     return torch.is_tensor(obj) and len(obj.shape) == 4 and obj.shape[1] == 3
 
 
@@ -33,7 +33,7 @@ def move_to(obj, device):
 
 
 def extract_tensors(obj):
-    """ Get list of tensor objects from nested data structure """
+    """Get list of tensor objects from nested data structure"""
     tensors = []
 
     def visit(obj):
@@ -71,7 +71,7 @@ def write_json(content, fname):
 
 
 def inf_loop(data_loader):
-    """ wrapper function for endless data loader. """
+    """wrapper function for endless data loader."""
     for loader in repeat(data_loader):
         yield from loader
 

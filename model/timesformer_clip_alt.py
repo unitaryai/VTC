@@ -227,7 +227,7 @@ class VisualTransformer(nn.Module):
             bias=False,
         )
 
-        scale = width ** -0.5
+        scale = width**-0.5
         self.class_embedding = nn.Parameter(scale * torch.randn(width))
         self.positional_embedding = nn.Parameter(
             scale * torch.randn((input_resolution // patch_size) ** 2 + 1, width)

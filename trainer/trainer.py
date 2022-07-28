@@ -3,9 +3,10 @@ import time
 import numpy as np
 import torch
 import wandb
+from torchvision.utils import make_grid
+
 from evaluation.retrieval_evaluation import retrieval_evaluation
 from model.metric import LossMetric, MetricTracker
-from torchvision.utils import make_grid
 from utils import extract_tensors, inf_loop, is_image_like_batch, move_to
 
 from .base_trainer import BaseTrainer

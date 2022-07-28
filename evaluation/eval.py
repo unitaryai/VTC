@@ -7,13 +7,14 @@ sys.path.append(".")
 import json
 import logging
 
-import dataset_loaders.dataset_loaders as module_data
-import model.model as module_arch
 import numpy as np
 import torch
-from model.metric import RecallAtK
 from torch.utils.data import DataLoader
 from tqdm import tqdm
+
+import dataset_loaders.dataset_loaders as module_data
+import model.model as module_arch
+from model.metric import RecallAtK
 from utils.parse_config import ConfigParser
 
 logging.getLogger().setLevel(logging.INFO)

@@ -19,6 +19,7 @@ import av
 from GDT.datasets.audio_utils import load_audio
 from GDT.datasets.decoder import get_start_end_idx
 from GDT.model import AudioBaseNetwork, Identity
+
 from model.model import MLP
 
 _filedir = os.path.dirname(os.path.realpath(__file__))

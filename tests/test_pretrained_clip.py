@@ -4,7 +4,7 @@ import torch
 import model.model as module_arch
 
 
-def test_pretrained_clip_same_as_ours():
+def test_official_clip_same_as_ours():
     ims = torch.randn(2, 3, 224, 224)
     title = clip.tokenize(["hello", "world"])
     comms = torch.stack(

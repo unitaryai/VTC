@@ -10,6 +10,18 @@ from torch.nn.init import constant_
 
 from .timesformer_clip_alt import make_timesformer_clip_vit_alt
 
+__all__ = [
+    "CLIP",
+    "MLP",
+    "JointEmbedding",
+    "PretrainedCLIP",
+    "PretrainedCLIP_finaltf",
+    "PretrainedCLIP_TimeSformer",
+    "PretrainedCLIP_TimeSformer_finaltf",
+    "PretrainedCLIPBase",
+    "R2Plus1D_34_IG65M_32frames",
+]
+
 
 def normalize(x):
     return x / x.norm(dim=-1, keepdim=True)

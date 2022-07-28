@@ -28,6 +28,8 @@ from einops import rearrange, repeat
 from torch import einsum, nn
 from torch.nn.init import constant_, xavier_uniform_
 
+__all__ = ["make_timesformer_clip_vit"]
+
 
 class LayerNorm(nn.LayerNorm):
     """Subclass torch's LayerNorm to handle fp16."""

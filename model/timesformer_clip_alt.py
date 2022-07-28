@@ -16,6 +16,8 @@ from einops import rearrange
 from torch import einsum, nn
 from torch.nn.init import constant_, trunc_normal_
 
+__all__ = ["make_timesformer_clip_vit_alt"]
+
 
 class LayerNorm(nn.LayerNorm):
     """Subclass torch's LayerNorm to handle fp16."""

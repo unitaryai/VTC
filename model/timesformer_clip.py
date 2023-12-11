@@ -62,7 +62,6 @@ def multi_head_attention_space(
     out_proj_bias,
     nframes,
 ):
-
     head_dim = dim // nheads
     assert head_dim * nheads == dim, "embed_dim must be divisible by num_heads"
     scaling = float(head_dim) ** -0.5
@@ -138,7 +137,6 @@ def multi_head_attention_time(
     out_proj_bias,
     nframes,
 ):
-
     head_dim = dim // nheads
     assert head_dim * nheads == dim, "embed_dim must be divisible by num_heads"
     scaling = float(head_dim) ** -0.5

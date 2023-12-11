@@ -465,7 +465,6 @@ class VideoDatasetSegments(VisionTitleCommentDatasetBase):
         test_on_over_k_comms=None,
         test_set_limit=None,
     ):
-
         self.train = train
         self.root = root
         self.kinetics_root = kinetics_root
@@ -587,7 +586,6 @@ class VideoDatasetFirst32(Dataset):
         should_partition_dataframe=True,
         clip_preprocess=False,
     ):
-
         self.train = train
 
         self.height = 128
@@ -952,7 +950,6 @@ class ImTextDataset(VisionTitleCommentDatasetBase):
         audio_with_comms=None,
         audio_instead_of_title=False,
     ):
-
         self.train = train
         self.root = root
         self.num_comms = int(num_comms)

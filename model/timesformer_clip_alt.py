@@ -43,7 +43,6 @@ def attn(q, k, v):
 def multi_head_attention(
     x, dim, nheads, in_proj_weight, in_proj_bias, out_proj_weight, out_proj_bias
 ):
-
     head_dim = dim // nheads
     assert head_dim * nheads == dim, "embed_dim must be divisible by num_heads"
     scaling = float(head_dim) ** -0.5

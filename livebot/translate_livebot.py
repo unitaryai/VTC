@@ -51,7 +51,6 @@ with open("opennmt_livebot_split/test.json", "r") as f:
 test_vid_ids = sorted(map(int, test.keys()))
 
 for test_id in test_vid_ids:
-
     out_file = f"translated_comments/{test_id}.json"
 
     if os.path.exists(out_file):

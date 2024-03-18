@@ -887,9 +887,11 @@ class FeaturesDataset(Dataset):
 
         # Allow up to one level of nesting
         self.feats = [
-            [load_features(df, feats_inner) for feats_inner in feats]
-            if isinstance(feats, list)
-            else load_features(df, feats)
+            (
+                [load_features(df, feats_inner) for feats_inner in feats]
+                if isinstance(feats, list)
+                else load_features(df, feats)
+            )
             for feats in input_features
         ]
 

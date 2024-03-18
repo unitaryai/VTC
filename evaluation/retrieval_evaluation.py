@@ -179,14 +179,16 @@ def retrieval_evaluation(
             frames = frames[:, ::frame_stride]
             splits = torch.split(frames, nframes, 1)
             splits_pad = [
-                x
-                if x.shape[1] == nframes
-                else torch.index_select(
-                    x,
-                    dim=1,
-                    index=torch.floor(
-                        torch.linspace(0, x.shape[1] - 1, nframes, device=device)
-                    ).to(torch.int64),
+                (
+                    x
+                    if x.shape[1] == nframes
+                    else torch.index_select(
+                        x,
+                        dim=1,
+                        index=torch.floor(
+                            torch.linspace(0, x.shape[1] - 1, nframes, device=device)
+                        ).to(torch.int64),
+                    )
                 )
                 for x in splits
             ]

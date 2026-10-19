@@ -17,9 +17,9 @@ from torch.utils.data.dataset import Dataset
 from torchvision import transforms
 from tqdm import tqdm
 
-from dataset_loaders.video_retrieval_videodatasets import VideoDatasetMSRVTT  # noqa
-from dataset_loaders.video_retrieval_videodatasets import (
+from dataset_loaders.video_retrieval_videodatasets import (  # noqa
     VideoDatasetK700Comments,
+    VideoDatasetMSRVTT,
     VideoDatasetMSVD,
     _tokenize_max_len,
 )
